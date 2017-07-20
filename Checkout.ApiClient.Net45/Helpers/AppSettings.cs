@@ -13,12 +13,13 @@ namespace Checkout
         private static CheckoutEnvironment _environment = CheckoutEnvironment.Undefined;
         private static string _secretKey;
         private static string _publicKey;
+        private static string _oauthToken;
         private static string _baseApiUri;
         private static int? _maxResponseContentBufferSize;
         private static int? _requestTimeout;
         private static bool? _debugMode;
-        private const string _liveUrl = "https://api2.checkout.com/v2";
-        private const string _sandboxUrl = "https://sandbox.checkout.com/api2/v2";
+        private const string _liveUrl = "https://checkout-shopping-server.azurewebsites.net";
+        private const string _sandboxUrl = "http://checkout-shopping-server.azurewebsites.net";
         public const string ClientUserAgentName = "Checkout-DotNetLibraryClient/v1.0";
         public const string DefaultContentType = "application/json";
 
@@ -32,6 +33,13 @@ namespace Checkout
             get { return _secretKey ?? (_secretKey = ReadConfig("Checkout.SecretKey", true)); }
             set { _secretKey = value; }
         }
+
+        public static string OAuthToken
+        {
+            get { return _oauthToken ?? (_oauthToken = $"Bearer {ReadConfig("Checkout.OAuthToken")}"); }
+            set { _oauthToken = value; }
+        }
+
         public static string PublicKey
         {
             get { return _publicKey ?? (_publicKey = ReadConfig("Checkout.PublicKey", true)); }

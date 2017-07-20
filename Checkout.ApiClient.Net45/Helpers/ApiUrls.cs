@@ -37,6 +37,13 @@
         private static string _recurringCustomerPaymentPlanApiUri;
         private static string _visaCheckout;
 
+        private static string _shoppingApiListItemsUri;
+        private static string _shoppingApiGetItemUri;
+        private static string _shoppingApiAddItemUri;
+        private static string _shoppingApiUpdateItemUri;
+        private static string _shoppingApiRemoveItemUri;
+        private static string _shoppingApiResetItemsUri;
+
         public static void ResetApiUrls()
         {
             _cardTokensApiUri = null;
@@ -68,6 +75,13 @@
             _recurringCustomerPaymentPlanSearchApiUri = null;
             _recurringCustomerPaymentPlanApiUri = null;
             _localPaymentChargesApiUri = null;
+
+            _shoppingApiListItemsUri = null;
+            _shoppingApiGetItemUri = null;
+            _shoppingApiAddItemUri = null;
+            _shoppingApiUpdateItemUri = null;
+            _shoppingApiRemoveItemUri = null;
+            _shoppingApiResetItemsUri = null;
         }
 
         public static string Charges
@@ -153,7 +167,10 @@
             => _binLookupUri ?? (_binLookupUri = string.Concat(AppSettings.BaseApiUri, "/lookups/bins/{0}"));
 
         public static string LocalPaymentIssuerIdLookup
-            => _localPaymentIssuerIdLookup ?? (_localPaymentIssuerIdLookup = string.Concat(AppSettings.BaseApiUri, "/lookups/localpayments/{0}/tags/issuerid"));
+            =>
+                _localPaymentIssuerIdLookup ??
+                (_localPaymentIssuerIdLookup =
+                    string.Concat(AppSettings.BaseApiUri, "/lookups/localpayments/{0}/tags/issuerid"));
 
         public static string RecurringPaymentPlans
             =>
@@ -182,5 +199,35 @@
                 _recurringCustomerPaymentPlanApiUri ??
                 (_recurringCustomerPaymentPlanApiUri =
                     string.Concat(AppSettings.BaseApiUri, "/recurringPayments/customers/{0}"));
+
+        public static string ShoppingListIems
+            =>
+                _shoppingApiListItemsUri ??
+                (_shoppingApiListItemsUri = string.Concat(AppSettings.BaseApiUri, "/shoppingcart"));
+
+        public static string ShoppingGetItem
+            =>
+                _shoppingApiGetItemUri ??
+                (_shoppingApiGetItemUri = string.Concat(AppSettings.BaseApiUri, "/shoppingcart/{0}"));
+
+        public static string ShoppingAddItem
+            =>
+                _shoppingApiAddItemUri ??
+                (_shoppingApiAddItemUri = string.Concat(AppSettings.BaseApiUri, "/shoppingcart/add"));
+
+        public static string ShoppingUpdateItem
+            =>
+                _shoppingApiUpdateItemUri ??
+                (_shoppingApiUpdateItemUri = string.Concat(AppSettings.BaseApiUri, "/shoppingcart/update"));
+
+        public static string ShoppingRemoveItem
+            =>
+                _shoppingApiRemoveItemUri ??
+                (_shoppingApiRemoveItemUri = string.Concat(AppSettings.BaseApiUri, "/shoppingcart/remove"));
+
+        public static string ShoppingResetItems
+            =>
+                _shoppingApiResetItemsUri ??
+                (_shoppingApiResetItemsUri = string.Concat(AppSettings.BaseApiUri, "/shoppingcart/reset"));
     }
 }

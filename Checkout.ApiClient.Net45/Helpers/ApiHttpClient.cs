@@ -144,12 +144,20 @@ namespace Checkout
         /// <summary>
         /// Submits a delete request to the given web address
         /// </summary>
-        public HttpResponse<T> DeleteRequest<T>(string requestUri, string authenticationKey)
+        public HttpResponse<T> DeleteRequest<T>(string requestUri, string authenticationKey, object requestPayload = null)
         {
             var httpRequestMsg = new HttpRequestMessage();
+            string requestPayloadAsString = null;
 
             httpRequestMsg.Method = HttpMethod.Delete;
             httpRequestMsg.RequestUri = new Uri(requestUri);
+
+            if (requestPayload != null)
+            {
+                requestPayloadAsString = GetObjectAsString(requestPayload);
+                httpRequestMsg.Content = new StringContent(requestPayloadAsString, Encoding.UTF8, AppSettings.DefaultContentType);
+            }
+            
             httpRequestMsg.Headers.Add("Accept", AppSettings.DefaultContentType);
 
             SetHttpRequestHeader("Authorization", authenticationKey);
@@ -157,6 +165,11 @@ namespace Checkout
             if (AppSettings.DebugMode)
             {
                 Console.WriteLine(string.Format("\n\n** Request ** Delete {0}", requestUri));
+
+                if (requestPayload != null)
+                {
+                    Console.WriteLine(string.Format("\n\n** Payload ** \n {0} \n", requestPayloadAsString));
+                }
             }
 
             return SendRequest<T>(httpRequestMsg).Result; 
