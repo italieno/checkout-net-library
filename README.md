@@ -11,3 +11,6 @@ An evolution of the standard checkout sdk able to consume the brand new [checkou
 - Retry Strategy
 - Improved Composition
 - Multiple Nuget Packages (one per domain)
+
+
+_Please note I've refactored only the 4.5 version_
